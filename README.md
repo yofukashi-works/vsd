@@ -1,7 +1,26 @@
-VSD プロジェクト
+VSD プロジェクト yofukashi-works Fork版
 ======================
-[![Build status](https://ci.appveyor.com/api/projects/status/5ggfucun3x6m8vt0/branch/master?svg=true)](https://ci.appveyor.com/project/YoshiNRT/vsd/branch/master)
 
+## yofukashi-works Fork版 について
+本プロジェクトは元のプロジェクトである、[vsd](https://github.com/yoshinrt/vsd) がPublic archive化されたため  
+[yofukashi-works](https://github.com/yofukashi-works)が作製した**Fork版**です。
+
+### 変更履歴
+* r1022
+  * 2^24を超える入力値で、丸め誤差が発生する問題を修正
+  * 開発環境をVS2019→VS2022に変更
+  * 開発環境をcygwin→cygwin64に変更
+* r1021
+  * オリジナル最終版
+
+## ライセンス情報
+元のプロジェクトの著作権は元の作者である[yoshinrt](https://github.com/yoshinrt) に帰属し、本プロジェクトもGNU General Public License (GPL) に基づいて公開します。
+
+## vsdに関する記事
+よふかしわーくすの[ブログ](https://www.blog.yofukashi-works.com/?s=VSD)にて、いくつかVSD for GPSに関する記事を公開しています。
+
+
+## VSD プロジェクト オリジナル版
 VSD プロジェクトは，自動車のサーキット走行などにおけるデータロガー環境を自作することを目指し，車両情報の取得，車両情報のリアルタイム表示，
 オフラインでの車両情報と車載動画との合成，を実現するプロジェクトです．
 

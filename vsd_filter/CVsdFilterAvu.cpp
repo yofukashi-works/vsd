@@ -843,7 +843,7 @@ void ExtendDialog( HWND hwnd, HINSTANCE hInst ){
 	
 	// rev
 	hwndChild = CreateWindow(
-		"STATIC", "VSD for GPS " PROG_REVISION_STR, WS_CHILD | WS_VISIBLE,
+		"STATIC", "VSD for GPS yofukashi-works " PROG_REVISION_STR, WS_CHILD | WS_VISIBLE,
 		POS_FILE_CAPTION_POS + POS_FILE_CAPTION_SIZE, y,
 		POS_FILE_NAME_SIZE / 2, POS_FILE_HEIGHT,
 		hwnd, 0, hInst, NULL
