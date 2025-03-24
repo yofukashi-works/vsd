@@ -71,7 +71,7 @@ function WindowOnLoad(){
 
 function UpdateCheck(){
 	GetPath();
-	document.form1.update.checked = FileSys.FileExists( InstallPath + "\\vsd_filter_gps.auf" );
+	document.form1.update.checked = (FileSys.FileExists( InstallPath + "\\vsd_filter_gps.auf" )) | (FileSys.FileExists( InstallPath + "\\vsd_filter_gps_yofukashi.auf" ));
 	Caption();
 }
 
@@ -88,12 +88,13 @@ function Caption(){
 			'vsd_plugins\\_user_config.js 以外は上書きされます．<br/>' :
 			'「インストール開始」を押すと，' +
 			'<a href="http://spring-fragrance.mints.ne.jp/aviutl/">AviUtl</a>, ' +
-			'<a href="https://yoshinrt.github.io/vsd/">VSD for GPS</a>，' +
-			'<a href="http://pop.4-bit.jp/">L-SMASH Woks</a>，' +
-			'<a href="https://osdn.jp/projects/ffdshow-tryout/">ffdshow</a>' +
+			'<a href="http://spring-fragrance.mints.ne.jp/aviutl/">拡張編集</a>, ' +
+			'<a href="https://github.com/yofukashi-works/vsd/">VSD for GPS</a>，' +
+			'<a href="https://github.com/Mr-Ojii/L-SMASH-Works-Auto-Builds/">L-SMASH Woks</a>，' +
+			'<a href="https://github.com/yofukashi-works/vsd/releases/download/">ffdshow</a>' +
 			' がインストールされます．<br/>'
 	);
-	
+
 	document.form1.install.value = ( document.form1.update.checked ? "アップデート" : "インストール" ) + "開始";
 }
 
@@ -115,28 +116,47 @@ function Install(){
 }
 
 function InstallSub(){
-	
-	Download( "http://spring-fragrance.mints.ne.jp/aviutl/aviutl100.zip", undefined, 1 );
-	
-	WshShell.Run(
-		'cmd /c cd /d "' + WorkPath + '"&&' +
-		'7za -aoa -o"' + InstallPath + '" x aviutl*.zip&&' +
-		'xcopy /s/y/i "' + WorkPath + '\\plugins" "' + InstallPath + '"',
-		6, 1
-	);
-	
+
 	Log( "<hr />AviUtl のインストールを開始します" );
 	Log( "AviUtl をダウンロード中..." );
-	Log( "✔AviUtl のインストール完了" );
+	
+	if( !Download( "https://spring-fragrance.mints.ne.jp/aviutl/aviutl110.zip", undefined, 1 )){
+		WshShell.Run(
+			'cmd /c cd /d "' + WorkPath + '"&&' +
+			'7za -aoa -o"' + InstallPath + '" x aviutl*.zip&&' +
+			'xcopy /s/y/i "' + WorkPath + '\\plugins" "' + InstallPath + '"',
+			6, 1
+		);
+	
+		Log( "✔AviUtl のインストール完了" );
+	}
+
+	Log( "<hr />拡張編集 のインストールを開始します" );
+	Log( "拡張編集 をダウンロード中..." );
+	
+	if( !Download( "https://spring-fragrance.mints.ne.jp/aviutl/exedit92.zip", undefined, 1 )){
+		WshShell.Run(
+			'cmd /c cd /d "' + WorkPath + '"&&' +
+			'7za -aoa -o"' + InstallPath + '" x exedit*.zip&&' +
+			'xcopy /s/y/i "' + WorkPath + '\\plugins" "' + InstallPath + '"',
+			6, 1
+		);
+	
+		Log( "✔拡張編集 のインストール完了" );
+	}
+
 	Log( "<hr />VSD for GPS のインストールを開始します" );
 	Log( "✔VSD for GPS のインストール完了" );
 	
 	Log( "<hr />L-SMASH Works のインストールを開始します" );
 	Log( "L-SMASH Works をダウンロード中..." );
-	if( !Download( "https://pop.4-bit.jp/bin/l-smash/L-SMASH_Works_r935-2_plugins.zip" )){
+	
+	CreatePluginsFolder(InstallPath);
+
+	if( !Download( "https://github.com/Mr-Ojii/L-SMASH-Works-Auto-Builds/releases/download/build-2025-03-23-01-18-01/L-SMASH-Works_r1151_Mr-Ojii_vimeo.zip", undefined, 1 )){
 		WshShell.Run(
 			'cmd /c cd /d "' + WorkPath + '"&&' +
-			'7za -aoa -o"' + InstallPath + '" x L-SMASH_Works*.zip lwinput.aui',
+			'7za -aoa -o"' + InstallPath + "\\plugins" + '" x L-SMASH-Works*.zip lw*',
 			6, 1
 		);
 		
@@ -146,9 +166,10 @@ function InstallSub(){
 	if( !document.form1.no_ffdshow.checked ){
 		Log( "<hr />ffdshow のインストールを開始します" );
 		
-		Download( "https://github.com/yoshinrt/vsd/releases/download/release_r986/ffdshow_rev3631_20101115_clsid.exe", WorkPath + "\\ffdshow_rev3631_20101115_clsid.exe" );
+		Download( "https://github.com/yofukashi-works/vsd/releases/download/r1023_yofukashi-works_Fork%E7%89%88/ffdshow_rev4532_20140717_clsid.exe" );
+		
 		WshShell.Run(
-			'"' + WorkPath + '\\ffdshow_rev3631_20101115_clsid.exe"',
+			'"' + WorkPath + '\\ffdshow_rev4532_20140717_clsid.exe"',
 			4, 1
 		);
 		Log( "✔ffdshow のインストール完了" );
@@ -170,10 +191,15 @@ function InstallSub(){
 function Update(){
 	Log( "VSD for GPS をアップデートしています..." );
 	
-	if( !FileSys.FileExists( InstallPath + "\\vsd_filter_gps.auf" )){
-		throw new Error( "インストール済みの vsd_filter_gps.auf が見つかりません．<br/>vsd_filter_gps.auf が存在するフォルダを「AviUtl インストールフォルダ」に指定してください" );
+	if( !(FileSys.FileExists( InstallPath + "\\vsd_filter_gps.auf" )) && !(FileSys.FileExists( InstallPath + "\\vsd_filter_gps_yofukashi.auf" ))){
+		throw new Error( "インストール済みの vsd_filter_gps***.auf が見つかりません．<br/>vsd_filter_gps***.auf が存在するフォルダを「AviUtl インストールフォルダ」に指定してください" );
 	}
-	
+
+	try{
+		// ファイルを削除
+		FileSys.DeleteFile(InstallPath + "\\vsd_filter_gps.auf");
+	}catch( e ){}
+
 	try{
 		FileSys.DeleteFile( WorkPath + "\\plugins\\vsd_plugins\\_user_config.js" );
 	}catch( e ){}
@@ -234,5 +260,19 @@ function SelectFolder( box ){
 	
 	UpdateCheck();
 }
+
+function CreatePluginsFolder(installPath) {
+	// FileSystemObjectを作成
+	var fso = new ActiveXObject("Scripting.FileSystemObject");
+	
+	// pluginsフォルダのパスを生成
+	var pluginsPath = installPath + "\\plugins";
+	
+	// フォルダが存在するか確認し、必要に応じて作成
+	if (!fso.FolderExists(pluginsPath)) {
+		fso.CreateFolder(pluginsPath);
+	}
+}
+
 </script>
 </body></html>

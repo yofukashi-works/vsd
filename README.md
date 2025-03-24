@@ -1,11 +1,19 @@
-VSD プロジェクト yofukashi-works Fork版
+# [VSD プロジェクト yofukashi-works Fork版](https://github.com/yofukashi-works/vsd)
 ======================
 
 ## yofukashi-works Fork版 について
 本プロジェクトは元のプロジェクトである、[vsd](https://github.com/yoshinrt/vsd) がPublic archive化されたため  
 [yofukashi-works](https://github.com/yofukashi-works)が作製した**Fork版**です。
 
+微妙になんらかの更新を入れています。
+
 ### 変更履歴
+* r1023
+  * インストーラの修正
+  * AviUtlを1.10に変更
+  * 拡張編集0.92を追加
+  * L-SMASH-Worksをr1151 Mr-Ojiiに変更
+  * ffdshowをrev4532に変更
 * r1022
   * 2^24を超える入力値で、丸め誤差が発生する問題を修正
   * 開発環境をVS2019→VS2022に変更
@@ -14,7 +22,7 @@ VSD プロジェクト yofukashi-works Fork版
   * オリジナル最終版
 
 ## ライセンス情報
-元のプロジェクトの著作権は元の作者である[yoshinrt](https://github.com/yoshinrt) に帰属し、本プロジェクトもGNU General Public License (GPL) に基づいて公開します。
+vsdプロジェクトの著作権は元の作者である[yoshinrt](https://github.com/yoshinrt) に帰属し、本プロジェクトもGNU General Public License (GPL) に基づいて公開します。
 
 ## vsdに関する記事
 よふかしわーくすの[ブログ](https://www.blog.yofukashi-works.com/?s=VSD)にて、いくつかVSD for GPSに関する記事を公開しています。
