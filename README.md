@@ -22,10 +22,13 @@
   * オリジナル最終版
 
 ## ライセンス情報
-vsdプロジェクトの著作権は元の作者である[yoshinrt](https://github.com/yoshinrt) に帰属し、本プロジェクトもGNU General Public License (GPL) に基づいて公開します。
+vsdプロジェクトの著作権は元の作者である[yoshinrt](https://github.com/yoshinrt) に帰属し、本プロジェクトもGNU General Public License (GPL-2.0 license) に基づいて公開します。
 
 ## vsdに関する記事
 よふかしわーくすの[ブログ](https://www.blog.yofukashi-works.com/?s=VSD)にて、いくつかVSD for GPSに関する記事を公開しています。
+
+## マニュアル
+[VSD for GPS yofukashi-works Fork版](https://yofukashi-works.github.io/vsd/)で公開しています。
 
 
 ## VSD プロジェクト オリジナル版
