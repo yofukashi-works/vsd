@@ -1,0 +1,6 @@
+;!@Install@!UTF-8!
+Title="VSD for GPSの展開"
+BeginPrompt="VSD for GPSの展開を開始しますか？"
+Progress="展開中..."
+ExecuteFile ="VSD_installer.hta"
+;!@InstallEnd@!

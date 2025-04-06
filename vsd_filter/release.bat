@@ -39,7 +39,12 @@ pushd zrelease
 		move _user_config.js.sample _user_config.js
 	popd
 	
-	zip -9r ../vsd_filter_gps.exe *
+REM	zip -9r ../vsd_filter_gps.exe 
+REM	zip コマンドを 7za コマンドに置き換え
+	7za a -mx=9 ..\installer\vsd_filter_gps.7z ..\installer\license ..\installer\7za.exe ..\installer\httpget.exe ..\installer\VSD_installer.hta ..\zrelease\plugins
+	copy /b ..\installer\7zSD.sfx + ..\installer\Config.txt + ..\installer\vsd_filter_gps.7z ..\vsd_filter_gps.exe
+	del ..\installer\vsd_filter_gps.7z
+
 	if errorlevel 1 exit /b %errorlevel%
 popd
 
